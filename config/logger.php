@@ -89,7 +89,7 @@ return [
             'level' => 'error',
             'tap' => [
                 LogFormatter::class.':'.implode(',', [
-                    '[%datetime%] [%level_name%] <%extra.function%(%extra.line%)> %message% %context%'.PHP_EOL,
+                    '[%datetime%] [%level_name%] %message% %context%'.PHP_EOL,
                     'Y-m-d H:i:s:v',
                 ]),
             ],
