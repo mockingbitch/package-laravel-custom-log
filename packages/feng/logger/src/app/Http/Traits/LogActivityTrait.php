@@ -18,7 +18,6 @@ trait LogActivityTrait
             'routeName' => $route->getName(),
             'action' => $route->getAction(),
             'parameters' => $route->parameters(),
-//            'middleware' => $route->gatherMiddleware(),
         ];
     }
 }
