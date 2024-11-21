@@ -1,6 +1,6 @@
 <?php
 
-namespace Feng\Logger\Facades;
+namespace Feng\Logger\facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Feng\Logger\App\Http\Controllers;
+namespace Feng\Logger\app\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

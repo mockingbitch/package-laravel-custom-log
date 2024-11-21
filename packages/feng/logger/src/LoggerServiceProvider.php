@@ -2,11 +2,11 @@
 
 namespace Feng\Logger;
 
+use Feng\Logger\App\Http\Middleware\LogActivity;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-//use Feng\Logger\App\Http\Middleware\LogActivity;
 
 class LoggerServiceProvider extends ServiceProvider
 {
@@ -64,12 +64,15 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function boot(Router $router): void
     {
-//        $router->middlewareGroup('activity', [LogActivity::class]);
+        $router->middlewareGroup('activity', [LogActivity::class]);
 //        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'Logger');
-        Config::set('logging', array_merge(
-            Config::get('logging'),
-            Config::get('logger')
-        ));
+        if (Config::get('logger')) {
+            Config::set('logging', array_merge(
+                Config::get('logging'),
+                Config::get('logger')
+            ));
+            QueryDebugger::setup();
+        }
     }
 
     /**
@@ -142,7 +145,11 @@ class LoggerServiceProvider extends ServiceProvider
         ], $publishTag);
 
         $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views/vendor/'.$publishTag),
+            __DIR__.'/resources/views' => base_path('resources/views/logger/' . $publishTag),
+        ], $publishTag);
+
+        $this->publishes([
+            __DIR__.'/database/migrations' => base_path('database/migrations/' . $publishTag),
         ], $publishTag);
 //
 //        $this->publishes([
