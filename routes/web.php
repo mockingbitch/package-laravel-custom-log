@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use Feng\Logger\Logger;
+use phongtran\Logger\Logger;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 

@@ -24,7 +24,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Feng\\Logger\\": "packages/feng/logger/src"
+            "phongtran\\Logger\\": "packages/phongtran/logger/src"
         }
     },
     "autoload-dev": {

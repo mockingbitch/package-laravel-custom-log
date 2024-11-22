@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    \Feng\Logger\LoggerServiceProvider::class,
+    \phongtran\Logger\LoggerServiceProvider::class,
 ];
