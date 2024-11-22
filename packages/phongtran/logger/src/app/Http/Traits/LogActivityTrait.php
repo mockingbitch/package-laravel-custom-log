@@ -21,4 +21,22 @@ trait LogActivityTrait
 //            'middleware' => $route->gatherMiddleware(),
         ];
     }
+
+    /**
+     * Convert route details to a readable log string.
+     *
+     * @param array $routeArray
+     * @return string
+     */
+    private function formatRouteLog(array $routeArray): string
+    {
+        return sprintf(
+            "uri: %s, params: %s, method: %s, route: %s, handler: %s",
+            $routeArray['uri'] ?? 'unknown uri',
+            implode(',', $routeArray['parameters'] ?? []) ?: 'unknown parameters',
+            $routeArray['methods'][0] ?? 'unknown method',
+            $routeArray['routeName'] ?? 'unknown route',
+            $routeArray['action']['controller'] ?? 'unknown handler'
+        );
+    }
 }

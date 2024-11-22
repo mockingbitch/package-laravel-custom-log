@@ -45,6 +45,7 @@ return [
     */
     'enable_log_activity' => env('LOGGER_ENABLE_ACTIVITY', false),
     'logger_table' => env('LOGGER_TABLE', 'logs'),
+    'logger_query_table' => env('LOGGER_QUERY_TABLE', 'log_queries'),
     'logger_connection' => env('LOGGER_CONNECTION', env('DB_CONNECTION', 'mysql')),
 
     /*
@@ -139,7 +140,7 @@ return [
             'level' => 'info',
             'tap' => [
                 LogFormatter::class.':'.implode(',', [
-                    '[%datetime%] [%level_name%] %message% %context%'.PHP_EOL,
+                    '[%datetime%] %message% %context%'.PHP_EOL,
                     'Y-m-d H:i:s:v',
                 ]),
             ],

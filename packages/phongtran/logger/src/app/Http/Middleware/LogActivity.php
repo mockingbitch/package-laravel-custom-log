@@ -23,7 +23,7 @@ class LogActivity
         $route = $request->route();
         $routeArray = $this->routeToArray($route);
         $routeJson = json_encode($routeArray);
-        Logger::activity($routeJson);
+        Logger::activity($this->formatRouteLog($routeArray));
 
         return $next($request);
     }

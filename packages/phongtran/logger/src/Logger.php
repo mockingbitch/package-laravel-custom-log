@@ -33,8 +33,12 @@ class Logger
      */
     private static function log(string $channel, string $level, string $message): void
     {
-        $backtrace = self::formatBacktrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
-        Log::channel($channel)->log($level, "{$backtrace} {$message}");
+        if ($channel === 'activity') {
+            Log::channel($channel)->log($level, "{$message}");
+        } else {
+            $backtrace = self::formatBacktrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
+            Log::channel($channel)->log($level, "{$backtrace} {$message}");
+        }
     }
 
     /**
