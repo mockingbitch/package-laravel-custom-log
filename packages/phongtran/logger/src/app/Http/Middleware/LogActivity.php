@@ -7,6 +7,13 @@ use phongtran\Logger\App\Http\Traits\LogActivityTrait;
 use phongtran\Logger\Logger;
 use Illuminate\Http\Request;
 
+/**
+ * LogActivity Middleware
+ *
+ * @package phongtran\Logger\app\Http\Middleware
+ * @copyright Copyright (c) 2024, jarvis.phongtran
+ * @author phongtran <jarvis.phongtran@gmail.com>
+ */
 class LogActivity
 {
     use LogActivityTrait;
@@ -22,8 +29,8 @@ class LogActivity
     {
         $route = $request->route();
         $routeArray = $this->routeToArray($route);
-        $routeJson = json_encode($routeArray);
-        Logger::activity($this->formatRouteLog($routeArray));
+        $activity = Logger::activity($this->formatRouteLog($routeArray));
+        $request->attributes->set('activity_id', $activity->id);
 
         return $next($request);
     }

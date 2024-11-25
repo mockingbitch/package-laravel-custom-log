@@ -7,7 +7,16 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use phongtran\Logger\app\Services\AbsLogService;
+use phongtran\Logger\app\Services\LogService;
 
+/**
+ * Logger Service Provider
+ *
+ * @package phongtran\Logger
+ * @copyright Copyright (c) 2024, jarvis.phongtran
+ * @author phongtran <jarvis.phongtran@gmail.com>
+ */
 class LoggerServiceProvider extends ServiceProvider
 {
     const DISABLE_DEFAULT_ROUTES_CONFIG = 'phongtran-logger.disableRoutes';
@@ -71,6 +80,8 @@ class LoggerServiceProvider extends ServiceProvider
                 Config::get('logging'),
                 Config::get('logger')
             ));
+        }
+        if (config('logger.enable_query_debugger')) {
             QueryDebugger::setup();
         }
     }
@@ -94,6 +105,9 @@ class LoggerServiceProvider extends ServiceProvider
 
         $this->app->singleton('logger', function ($app) {
             return new Logger();
+        });
+        $this->app->singleton(AbsLogService::class, function ($app) {
+            return new LogService();
         });
 
 //        $this->loadViewsFrom(__DIR__.'/resources/views/', 'Logger');
@@ -138,14 +152,14 @@ class LoggerServiceProvider extends ServiceProvider
      */
     private function publishFiles(): void
     {
-        $publishTag = 'Logger';
+        $publishTag = 'logger';
 
         $this->publishes([
             __DIR__ . '/config/logger.php' => base_path('config/logger.php'),
         ], $publishTag);
 
         $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views/logger/' . $publishTag),
+            __DIR__.'/resources/views' => base_path('resources/views/' . $publishTag),
         ], $publishTag);
 
         $this->publishes([

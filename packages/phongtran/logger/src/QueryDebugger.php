@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Performs settings for debugging executed queries.
+ * Query Debugger
  *
  * @package phongtran\Logger
+ * @copyright Copyright (c) 2024, jarvis.phongtran
+ * @author phongtran <jarvis.phongtran@gmail.com>
  */
 class QueryDebugger
 {

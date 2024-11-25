@@ -3,7 +3,15 @@
 namespace phongtran\Logger;
 
 use Illuminate\Support\Facades\Log;
+use phongtran\Logger\app\Services\AbsLogService;
 
+/**
+ * Logger
+ *
+ * @package phongtran\Logger
+ * @copyright Copyright (c) 2024, jarvis.phongtran
+ * @author phongtran <jarvis.phongtran@gmail.com>
+ */
 class Logger
 {
     /**
@@ -29,16 +37,21 @@ class Logger
      * @param string $channel
      * @param string $level
      * @param string $message
-     * @return void
+     * @return mixed
      */
-    private static function log(string $channel, string $level, string $message): void
+    private static function log(string $channel, string $level, string $message): mixed
     {
-        if ($channel === 'activity') {
-            Log::channel($channel)->log($level, "{$message}");
-        } else {
-            $backtrace = self::formatBacktrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
-            Log::channel($channel)->log($level, "{$backtrace} {$message}");
-        }
+        $logService = app(AbsLogService::class);
+        $logMessage = $channel === 'activity'
+            ? json_encode($message)
+            : self::formatBacktrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)) . " {$message}";
+        Log::channel($channel)->log($level, $logMessage);
+
+        return app()->call([$logService, 'store'], [
+            'channel' => $channel,
+            'level' => $level,
+            'message' => $logMessage,
+        ]);
     }
 
     /**
@@ -100,10 +113,10 @@ class Logger
      * Log an activity message.
      *
      * @param string $message
-     * @return void
+     * @return mixed
      */
-    public static function activity(string $message = ''): void
+    public static function activity(string $message = ''): mixed
     {
-        self::log('activity', 'info', $message);
+        return self::log('activity', 'info', $message);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace phongtran\Logger\app\Services\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -75,8 +76,8 @@ class Log extends Model
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('logger_table');
-        $this->connection = config('logger_connection');
+        $this->table = config('logger.logger_table');
+        $this->connection = config('logger.logger_connection');
     }
 
     /**

@@ -23,7 +23,7 @@ return new class extends Migration
             Schema::connection($connection)->create($table, function (Blueprint $table) {
                 $table->increments('id');
                 $table->longText('query')->nullable();
-                $table->string('time_execution')->nullable();
+                $table->string('execution_time')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

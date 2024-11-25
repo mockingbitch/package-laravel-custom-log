@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\HomeController;
 use phongtran\Logger\Logger;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'activity'], function () {

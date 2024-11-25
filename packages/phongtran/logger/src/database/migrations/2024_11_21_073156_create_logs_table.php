@@ -25,7 +25,6 @@ return new class extends Migration
                 $table->string('channel', 10);
                 $table->string('level', 10);
                 $table->longText('message')->nullable();
-                $table->string('type', 10);
                 $table->integer('user_id')->nullable();
                 $table->ipAddress('ipAddress')->nullable();
                 $table->text('userAgent')->nullable();

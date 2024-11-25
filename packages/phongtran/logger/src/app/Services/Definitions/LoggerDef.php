@@ -3,7 +3,7 @@
 namespace phongtran\Logger\app\Services\Definitions;
 
 /**
- * LoggerDef
+ * Logger Definition
  *
  * @package phongtran\Logger\app\Services\Definitions
  * @copyright Copyright (c) 2024, jarvis.phongtran

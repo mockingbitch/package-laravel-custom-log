@@ -68,8 +68,8 @@ class LogQuery extends Model
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('logger_query_table');
-        $this->connection = config('logger_connection');
+        $this->table = config('logger.logger_query_table');
+        $this->connection = config('logger.logger_connection');
     }
 
     /**

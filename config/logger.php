@@ -6,7 +6,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Log Channel
+    | Custom Log Channel
     |--------------------------------------------------------------------------
     |
     | This option defines the default log channel that is utilized to write
@@ -33,7 +33,20 @@ return [
         'trace' => env('LOG_DEPRECATIONS_TRACE', false),
     ],
 
-    'enable_log_activity' => env('LOGGER_ENABLE_ACTIVITY', false),
+    /*
+    |--------------------------------------------------------------------------
+    | Log Activity
+    |--------------------------------------------------------------------------
+    |
+    | Here you can configure log activity for your application. Laravel
+    | Using log activity will record all requests from users to the application.
+    | It will be optimized in dev environment to be able to develop applications
+    |
+    */
+    'enable_query_debugger' => env('ENABLE_QUERY_DEBUGGER', false),
+    'logger_table' => env('LOGGER_TABLE', 'logs'),
+    'logger_query_table' => env('LOGGER_QUERY_TABLE', 'log_queries'),
+    'logger_connection' => env('LOGGER_CONNECTION', env('DB_CONNECTION', 'mysql')),
 
     /*
     |--------------------------------------------------------------------------
@@ -127,7 +140,7 @@ return [
             'level' => 'info',
             'tap' => [
                 LogFormatter::class.':'.implode(',', [
-                    '[%datetime%] [%level_name%] %message% %context%'.PHP_EOL,
+                    '[%datetime%] %message% %context%'.PHP_EOL,
                     'Y-m-d H:i:s:v',
                 ]),
             ],

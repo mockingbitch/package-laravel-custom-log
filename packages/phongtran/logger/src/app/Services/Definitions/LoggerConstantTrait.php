@@ -11,4 +11,23 @@ namespace phongtran\Logger\app\Services\Definitions;
  */
 trait LoggerConstantTrait
 {
+    /**
+     * Get log badge level
+     *
+     * @param $level
+     * @return string
+     */
+    public static function getLogBadgeLevel($level): string
+    {
+        $levelClasses = [
+            'info' => 'success',
+            'critical' => 'danger',
+            'error' => 'danger',
+            'activity' => 'success',
+            'warning' => 'warning',
+            'debug' => 'info',
+        ];
+
+        return $levelClasses[$level] ?? 'info';
+    }
 }
