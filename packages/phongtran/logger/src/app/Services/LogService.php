@@ -16,9 +16,14 @@ class LogService extends AbsLogService
         ]);
     }
 
-    public function get()
+    /**
+     * Get all with paginate
+     *
+     * @return mixed
+     */
+    public function get(): mixed
     {
-        return Log::all();
+        return Log::paginate(20);
     }
 
     /**
