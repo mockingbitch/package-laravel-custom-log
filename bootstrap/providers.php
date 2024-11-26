@@ -2,5 +2,6 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    \phongtran\Logger\LoggerServiceProvider::class,
+    App\Providers\TelescopeServiceProvider::class,
+    phongtran\Logger\LoggerServiceProvider::class,
 ];

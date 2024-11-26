@@ -12,6 +12,7 @@ Route::group(['middleware' => 'activity'], function () {
         Logger::debug('Test message');
         Logger::info('Test message');
     })->name('welcome');
-    Route::get('/test/{id}', [HomeController::class, 'index'])->name('welcome');
+    Route::get('/test/{id}', [HomeController::class, 'index']);
+    Route::get('/as', [HomeController::class, 'test'])->name('welcome');
     Route::post('/test/{id}', [HomeController::class, 'post'])->name('post');
 });

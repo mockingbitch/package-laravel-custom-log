@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Logger</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" />
+    <link rel="stylesheet" href="{{asset('vendor/logger/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/logger/css/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="shortcut icon" href="{{asset('vendor/logger/images/favicon.png')}}" />
 </head>
 <body>
 <div class="container-scroller">
@@ -21,10 +22,10 @@
             </div>
             <div>
                 <a class="navbar-brand brand-logo" href="../../index.html">
-                    <img src="{{asset('assets/images/logo.svg')}}" alt="logo" />
+                    <img src="{{asset('vendor/logger/images/logo.svg')}}" alt="logo" />
                 </a>
                 <a class="navbar-brand brand-logo-mini" href="../../index.html">
-                    <img src="{{asset('assets/images/logo-mini.svg')}}" alt="logo" />
+                    <img src="{{asset('vendor/logger/images/logo-mini.svg')}}" alt="logo" />
                 </a>
             </div>
         </div>
@@ -141,6 +142,6 @@
         </div>
     </div>
 </div>
-<script src="{{asset('assets/js/vendor.bundle.base.js')}}"></script>
+<script src="{{asset('vendor/logger/js/vendor.bundle.base.js')}}"></script>
 </body>
 </html>

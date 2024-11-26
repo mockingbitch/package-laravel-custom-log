@@ -21,8 +21,32 @@ class LogService extends AbsLogService
         return Log::all();
     }
 
-    public function show(int $id)
+    /**
+     * Show detail
+     *
+     * @param int $id
+     * @return Log|null
+     */
+    public function show(int $id): ?Log
     {
-        return Log::find($id);
+        return Log::with(['log'])->find($id);
+    }
+
+    /**
+     * Update activity log
+     *
+     * @param int $id
+     * @param $executionTime
+     * @param array $response
+     * @return Log|null
+     */
+    public function updateActivity(int $id, $executionTime, array $response = []): ?Log
+    {
+        $log = $this->show($id);
+        $log->execution_time = $executionTime;
+        $log->response = json_encode($response);
+        $log->save();
+
+        return $log;
     }
 }

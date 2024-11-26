@@ -30,8 +30,6 @@ return new class extends Migration
                 $table->text('userAgent')->nullable();
                 $table->string('locale')->nullable();
                 $table->integer('activity_id')->nullable();
-                $table->longText('response')->nullable();
-                $table->string('execution_time')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

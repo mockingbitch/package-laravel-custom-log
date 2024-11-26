@@ -23,10 +23,7 @@ class LoggerController
      */
     public function __construct(
         protected AbsLogService $logService,
-    )
-    {
-
-    }
+    ) {}
 
     /**
      * Logger dashboard
@@ -43,5 +40,18 @@ class LoggerController
     public function getLog($type): Factory|View|Application
     {
         dd($type);
+    }
+
+    /**
+     * Detail log
+     *
+     * @param $id
+     * @return Factory|View|Application
+     */
+    public function detail($id): Factory|View|Application
+    {
+        $log = app()->call([$this->logService, 'show'], ['id' => $id]);
+
+        return view('logger.detail', compact('log'));
     }
 }

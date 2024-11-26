@@ -7,8 +7,10 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use phongtran\Logger\app\Listeners\RequestListener;
 use phongtran\Logger\app\Services\AbsLogService;
 use phongtran\Logger\app\Services\LogService;
+use phongtran\Logger\app\Watcher\RequestWatcher;
 
 /**
  * Logger Service Provider
@@ -109,6 +111,9 @@ class LoggerServiceProvider extends ServiceProvider
         $this->app->singleton(AbsLogService::class, function ($app) {
             return new LogService();
         });
+        $this->app->singleton(RequestWatcher::class, function ($app) {
+            return new RequestListener();
+        });
 
 //        $this->loadViewsFrom(__DIR__.'/resources/views/', 'Logger');
 //        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
@@ -164,6 +169,10 @@ class LoggerServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/database/migrations' => base_path('database/migrations/' . $publishTag),
+        ], $publishTag);
+
+        $this->publishes([
+            __DIR__.'/public/vendor' => base_path('public/vendor/' . $publishTag),
         ], $publishTag);
 //
 //        $this->publishes([
