@@ -12,6 +12,31 @@ namespace phongtran\Logger\app\Services\Definitions;
 trait LoggerConstantTrait
 {
     /**
+     * @var array $type
+     */
+    public static array $type = [
+        self::SQL => 'SQL',
+        self::INFO => 'INFORMATION',
+        self::DEBUG => 'DEBUG',
+        self::FATAL => 'FATAL',
+        self::WARNING => 'WARNING',
+        self::ACTIVITY => 'ACTIVITY',
+        self::EXCEPTION => 'EXCEPTION',
+    ];
+
+    /**
+     * @var array|string[] $levelClasses
+     */
+    public static array $levelClasses = [
+        self::LEVEL_INFO => 'success',
+        self::LEVEL_CRITICAL => 'danger',
+        self::LEVEL_ERROR => 'danger',
+        self::LEVEL_ACTIVITY => 'success',
+        self::LEVEL_WARNING => 'warning',
+        self::LEVEL_DEBUG => 'info',
+    ];
+
+    /**
      * Get log badge level
      *
      * @param $level
@@ -19,15 +44,17 @@ trait LoggerConstantTrait
      */
     public static function getLogBadgeLevel($level): string
     {
-        $levelClasses = [
-            'info' => 'success',
-            'critical' => 'danger',
-            'error' => 'danger',
-            'activity' => 'success',
-            'warning' => 'warning',
-            'debug' => 'info',
-        ];
+        return self::$levelClasses[$level] ?? 'info';
+    }
 
-        return $levelClasses[$level] ?? 'info';
+    /**
+     * Get type of Log
+     *
+     * @param $level
+     * @return string
+     */
+    public static function getLevel($level): string
+    {
+        return self::$type[$level] ?? 'info';
     }
 }

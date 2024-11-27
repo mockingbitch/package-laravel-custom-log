@@ -9,15 +9,33 @@
                         <h4 class="card-title">Log List</h4>
                         <div class="col-md-3">
                             <div class="dropdown">
-                                <button class="btn btn-light" type="button" id="dropdownMenuButton8" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Select type </button>
+                                <button
+                                    class="btn btn-light"
+                                    type="button"
+                                    id="dropdownMenuButton8"
+                                    data-bs-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="true"
+                                >
+                                    @if($currentChannel)
+                                        {{LoggerDef::getLevel($currentChannel)}}
+                                    @else
+                                        Select Channel
+                                    @endif
+                                </button>
                                 <div class="dropdown-menu" aria-labelledby="">
-                                    <h6 class="dropdown-header">Type of Log</h6>
-                                    <a class="dropdown-item" href="#">Activity</a>
-                                    <a class="dropdown-item" href="#">Information</a>
-                                    <a class="dropdown-item" href="#">Warning</a>
-                                    <a class="dropdown-item" href="#">Fatal</a>
-                                    <a class="dropdown-item" href="#">Exception</a>
-                                    <a class="dropdown-item" href="#">Debug</a>
+                                    <h6 class="dropdown-header">Log channel</h6>
+                                    <a class="dropdown-item" href="{{route('log.index')}}">
+                                        *ALL
+                                    </a>
+                                    @foreach(LoggerDef::$type as $key => $value)
+                                        <a
+                                            class="dropdown-item"
+                                            href="{{route('log.index')}}?channel={{$key}}"
+                                        >
+                                            {{LoggerDef::getLevel($key)}}
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -25,6 +43,7 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Channel</th>
                                     <th>Content</th>
                                     <th>Level</th>
@@ -34,6 +53,7 @@
                                 <tbody>
                                 @foreach($logs as $item)
                                     <tr onclick="window.location.href='{{ route('log.detail', ['id' => $item->id]) }}'" style="cursor: pointer;">
+                                        <td>{{$item->id}}</td>
                                         <td>{{$item->channel}}</td>
                                         <td>{{$item->message}}</td>
                                         <td>
@@ -47,7 +67,7 @@
                                 </tbody>
                             </table>
                             <br />
-                            {{ $logs->links('pagination::bootstrap-5') }}
+                            {{ $logs->onEachSide(2)->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>

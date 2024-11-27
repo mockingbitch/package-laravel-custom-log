@@ -31,6 +31,7 @@
                             <li>Body: {{$log->message}}</li>
                             <li>Created at: {{$log->created_at}}</li>
                         </ul>
+                        <h4 class="card-title">Response</h4>
                         @if($log->response)
                             @include('logger.components.json-viewer', ['json' => $log->response])
                         @endif

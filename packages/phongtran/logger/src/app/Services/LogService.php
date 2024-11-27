@@ -19,11 +19,16 @@ class LogService extends AbsLogService
     /**
      * Get all with paginate
      *
+     * @param string|null $channel
      * @return mixed
      */
-    public function get(): mixed
+    public function get(string $channel = null): mixed
     {
-        return Log::paginate(20);
+        if ($channel) {
+            return Log::where('channel', $channel)->paginate(20)->withQueryString();
+        }
+
+        return Log::paginate(20)->withQueryString();
     }
 
     /**
