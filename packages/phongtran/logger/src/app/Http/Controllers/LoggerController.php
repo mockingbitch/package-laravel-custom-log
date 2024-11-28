@@ -52,6 +52,8 @@ class LoggerController
     {
         $log = app()->call([$this->logService, 'show'], ['id' => $id]);
 
-        return view('logger.detail', compact('log'));
+        return view('logger.detail', [
+            'log' => $log,
+        ]);
     }
 }

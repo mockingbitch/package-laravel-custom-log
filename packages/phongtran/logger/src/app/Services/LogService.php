@@ -6,7 +6,15 @@ use phongtran\Logger\app\Services\Models\Log;
 
 class LogService extends AbsLogService
 {
-    public function store(string $channel, string $level, string $message = '')
+    /**
+     * Store log into database
+     *
+     * @param string $channel
+     * @param string $level
+     * @param string $message
+     * @return mixed
+     */
+    public function store(string $channel, string $level, string $message = ''): mixed
     {
         return Log::create([
             'channel' => $channel,

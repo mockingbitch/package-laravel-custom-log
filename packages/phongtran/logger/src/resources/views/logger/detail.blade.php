@@ -31,41 +31,42 @@
                             <li>Body: {{$log->message}}</li>
                             <li>Created at: {{$log->created_at}}</li>
                         </ul>
-                        @if($log->response)
-                            @include('logger.components.json-viewer', ['json' => $log->response])
-                        @endif
+                        <h4 class="card-title">Response</h4>
+{{--                        @if($log->response)--}}
+{{--                            @include('logger.components.json-viewer', ['json' => $log->response])--}}
+{{--                        @endif--}}
                     </div>
-                    @if(!$log->activity_id)
-                        <div class="card-body">
-                            <h4 class="card-title">Log activity</h4>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Channel</th>
-                                        <th>Content</th>
-                                        <th>Level</th>
-                                        <th>Log date</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($log->log as $item)
-                                        <tr onclick="window.location.href='{{ route('log.detail', ['id' => $item->id]) }}'" style="cursor: pointer;">
-                                            <td>{{$item->channel}}</td>
-                                            <td>{{$item->message}}</td>
-                                            <td>
-                                                <label class="badge badge-{{LoggerDef::getLogBadgeLevel($item->level)}}">
-                                                    {{$item->level}}
-                                                </label>
-                                            </td>
-                                            <td>{{$item->created_at}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @endif
+{{--                    @if(!$log->activity_id)--}}
+{{--                        <div class="card-body">--}}
+{{--                            <h4 class="card-title">Log activity</h4>--}}
+{{--                            <div class="table-responsive">--}}
+{{--                                <table class="table table-hover">--}}
+{{--                                    <thead>--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Channel</th>--}}
+{{--                                        <th>Content</th>--}}
+{{--                                        <th>Level</th>--}}
+{{--                                        <th>Log date</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tbody>--}}
+{{--                                    @foreach($log->log as $item)--}}
+{{--                                        <tr onclick="window.location.href='{{ route('log.detail', ['id' => $item->id]) }}'" style="cursor: pointer;">--}}
+{{--                                            <td>{{$item->channel}}</td>--}}
+{{--                                            <td>{{$item->message}}</td>--}}
+{{--                                            <td>--}}
+{{--                                                <label class="badge badge-{{LoggerDef::getLogBadgeLevel($item->level)}}">--}}
+{{--                                                    {{$item->level}}--}}
+{{--                                                </label>--}}
+{{--                                            </td>--}}
+{{--                                            <td>{{$item->created_at}}</td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                 </div>
             </div>
         </div>
