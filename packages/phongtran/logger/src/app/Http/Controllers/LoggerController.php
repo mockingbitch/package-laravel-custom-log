@@ -5,7 +5,6 @@ namespace phongtran\Logger\app\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Request;
 use phongtran\Logger\app\Services\AbsLogService;
 
 /**
@@ -34,11 +33,10 @@ class LoggerController
     public function index(): View|Factory|Application
     {
         $channel = request()->query('channel');
-        $logs = app()->call([$this->logService, 'get'], ['channel' => $channel]);
 
         return view('logger.index', [
-            'logs' => $logs,
-            'currentChannel' => $channel,
+            'logs' => $this->logService->get($channel) ?? null,
+            'currentChannel' => $channel ?? null,
         ]);
     }
 
@@ -50,10 +48,8 @@ class LoggerController
      */
     public function detail($id): Factory|View|Application
     {
-        $log = app()->call([$this->logService, 'show'], ['id' => $id]);
-
         return view('logger.detail', [
-            'log' => $log,
+            'log' => $this->logService->show($id) ?? null,
         ]);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace phongtran\Logger\app\Services;
 
+use phongtran\Logger\app\Services\Definitions\LoggerDef;
 use phongtran\Logger\app\Services\Models\Log;
+use phongtran\Logger\app\Services\Models\LogQuery;
 
 class LogService extends AbsLogService
 {
@@ -66,5 +68,20 @@ class LogService extends AbsLogService
         $log->save();
 
         return $log;
+    }
+
+    /**
+     * Store SQL Query
+     *
+     * @param string $query
+     * @param float $executionTime
+     * @return mixed
+     */
+    public function storeSqlQuery(string $query = '', float $executionTime = 0): mixed
+    {
+        return LogQuery::create([
+            'query' => $query,
+            'execution_time' => $executionTime,
+        ]);
     }
 }

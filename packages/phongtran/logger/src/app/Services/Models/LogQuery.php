@@ -46,7 +46,7 @@ class LogQuery extends Model
      */
     protected $fillable = [
         'query',
-        'time_execution',
+        'execution_time',
     ];
 
     /**
@@ -55,9 +55,9 @@ class LogQuery extends Model
      * @var array
      */
     protected $casts = [
-        'created_at'    => 'datetime',
-        'updated_at'    => 'datetime',
-        'deleted_at'    => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     /**

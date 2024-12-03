@@ -14,7 +14,7 @@ trait LoggerConstantTrait
     /**
      * @var array $type
      */
-    public static array $type = [
+    private static array $type = [
         self::SQL => 'SQL',
         self::INFO => 'INFORMATION',
         self::DEBUG => 'DEBUG',
@@ -27,7 +27,7 @@ trait LoggerConstantTrait
     /**
      * @var array|string[] $levelClasses
      */
-    public static array $levelClasses = [
+    private static array $levelClasses = [
         self::LEVEL_INFO => 'success',
         self::LEVEL_CRITICAL => 'danger',
         self::LEVEL_ERROR => 'danger',
@@ -56,5 +56,29 @@ trait LoggerConstantTrait
     public static function getLevel($level): string
     {
         return self::$type[$level] ?? 'info';
+    }
+
+    /**
+     * @var array|string[] $channels
+     */
+    private static array $channels = [
+        self::CHANNEL_SQL => 'sql',
+        self::CHANNEL_INFO => 'info',
+        self::CHANNEL_FATAL => 'fatal',
+        self::CHANNEL_DEBUG => 'debug',
+        self::CHANNEL_WARNING => 'warning',
+        self::CHANNEL_ACTIVITY => 'activity',
+        self::CHANNEL_EXCEPTION => 'exception',
+    ];
+
+    /**
+     * Get Channel
+     *
+     * @param $level
+     * @return string
+     */
+    public static function getChannel($level): string
+    {
+        return self::$channels[$level] ?? '';
     }
 }

@@ -37,33 +37,33 @@ class LoggerServiceProvider extends ServiceProvider
      */
     protected array $listeners = [
 
-        'Illuminate\Auth\Events\Attempting' => [
-            'phongtran\Logger\App\Listeners\LogAuthenticationAttempt',
-        ],
-
-        'Illuminate\Auth\Events\Authenticated' => [
-            'phongtran\Logger\App\Listeners\LogAuthenticated',
-        ],
-
-        'Illuminate\Auth\Events\Login' => [
-            'phongtran\Logger\App\Listeners\LogSuccessfulLogin',
-        ],
-
-        'Illuminate\Auth\Events\Failed' => [
-            'phongtran\Logger\App\Listeners\LogFailedLogin',
-        ],
-
-        'Illuminate\Auth\Events\Logout' => [
-            'phongtran\Logger\App\Listeners\LogSuccessfulLogout',
-        ],
-
-        'Illuminate\Auth\Events\Lockout' => [
-            'phongtran\Logger\App\Listeners\LogLockout',
-        ],
-
-        'Illuminate\Auth\Events\PasswordReset' => [
-            'phongtran\Logger\App\Listeners\LogPasswordReset',
-        ],
+//        'Illuminate\Auth\Events\Attempting' => [
+//            'phongtran\Logger\App\Listeners\LogAuthenticationAttempt',
+//        ],
+//
+//        'Illuminate\Auth\Events\Authenticated' => [
+//            'phongtran\Logger\App\Listeners\LogAuthenticated',
+//        ],
+//
+//        'Illuminate\Auth\Events\Login' => [
+//            'phongtran\Logger\App\Listeners\LogSuccessfulLogin',
+//        ],
+//
+//        'Illuminate\Auth\Events\Failed' => [
+//            'phongtran\Logger\App\Listeners\LogFailedLogin',
+//        ],
+//
+//        'Illuminate\Auth\Events\Logout' => [
+//            'phongtran\Logger\App\Listeners\LogSuccessfulLogout',
+//        ],
+//
+//        'Illuminate\Auth\Events\Lockout' => [
+//            'phongtran\Logger\App\Listeners\LogLockout',
+//        ],
+//
+//        'Illuminate\Auth\Events\PasswordReset' => [
+//            'phongtran\Logger\App\Listeners\LogPasswordReset',
+//        ],
 
     ];
 
@@ -110,9 +110,6 @@ class LoggerServiceProvider extends ServiceProvider
         });
         $this->app->singleton(AbsLogService::class, function ($app) {
             return new LogService();
-        });
-        $this->app->singleton(RequestWatcher::class, function ($app) {
-            return new RequestListener();
         });
 
 //        $this->loadViewsFrom(__DIR__.'/resources/views/', 'Logger');

@@ -27,4 +27,13 @@ interface LoggerConstants
     const LEVEL_CRITICAL = 'critical';
     const LEVEL_ACTIVITY = 'activity';
     const LEVEL_DEBUG = 'debug';
+
+    //CHANNEL
+    const CHANNEL_SQL = 'sql';
+    const CHANNEL_ACTIVITY = 'activity';
+    const CHANNEL_INFO = 'info';
+    const CHANNEL_WARNING = 'warning';
+    const CHANNEL_FATAL = 'fatal';
+    const CHANNEL_EXCEPTION = 'exception';
+    const CHANNEL_DEBUG = 'debug';
 }

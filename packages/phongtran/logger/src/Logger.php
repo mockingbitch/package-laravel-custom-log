@@ -4,6 +4,7 @@ namespace phongtran\Logger;
 
 use Illuminate\Support\Facades\Log;
 use phongtran\Logger\app\Services\AbsLogService;
+use phongtran\Logger\app\Services\Definitions\LoggerDef;
 
 /**
  * Logger
@@ -42,7 +43,7 @@ class Logger
     private static function log(string $channel, string $level, string $message): mixed
     {
         $logService = app(AbsLogService::class);
-        $logMessage = $channel === 'activity'
+        $logMessage = $channel === LoggerDef::CHANNEL_ACTIVITY
             ? json_encode($message)
             : self::formatBacktrace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)) . " {$message}";
         Log::channel($channel)->log($level, $logMessage);
@@ -62,7 +63,7 @@ class Logger
      */
     public static function warning(string $message = ''): void
     {
-        self::log('warning', 'warning', $message);
+        self::log(LoggerDef::CHANNEL_WARNING, LoggerDef::LEVEL_WARNING, $message);
     }
 
     /**
@@ -73,7 +74,7 @@ class Logger
      */
     public static function fatal(string $message = ''): void
     {
-        self::log('fatal', 'critical', $message);
+        self::log(LoggerDef::CHANNEL_FATAL, LoggerDef::LEVEL_CRITICAL, $message);
     }
 
     /**
@@ -84,7 +85,7 @@ class Logger
      */
     public static function exception(string $message = ''): void
     {
-        self::log('exception', 'error', $message);
+        self::log(LoggerDef::CHANNEL_EXCEPTION, LoggerDef::LEVEL_ERROR, $message);
     }
 
     /**
@@ -95,7 +96,7 @@ class Logger
      */
     public static function debug(string $message = ''): void
     {
-        self::log('debug', 'debug', $message);
+        self::log(LoggerDef::CHANNEL_DEBUG, LoggerDef::LEVEL_DEBUG, $message);
     }
 
     /**
@@ -106,7 +107,7 @@ class Logger
      */
     public static function info(string $message = ''): void
     {
-        self::log('info', 'info', $message);
+        self::log(LoggerDef::CHANNEL_INFO, LoggerDef::LEVEL_INFO, $message);
     }
 
     /**
@@ -117,6 +118,25 @@ class Logger
      */
     public static function activity(string $message = ''): mixed
     {
-        return self::log('activity', 'info', $message);
+        return self::log(LoggerDef::CHANNEL_ACTIVITY, LoggerDef::LEVEL_INFO, $message);
+    }
+
+    /**
+     * Log an sql query.
+     *
+     * @param string $query
+     * @param float $executionTime
+     * @return mixed
+     */
+    public static function sql(string $query = '', float $executionTime = 0): mixed
+    {
+        $logService = app(AbsLogService::class);
+        Log::channel(LoggerDef::CHANNEL_SQL)
+            ->log(LoggerDef::LEVEL_INFO, "[ExecutionTime: {$executionTime}ms] {$query}");
+
+        return app()->call([$logService, 'storeSqlQuery'], [
+            'query' => $query,
+            'executionTime' => $executionTime,
+        ]);
     }
 }

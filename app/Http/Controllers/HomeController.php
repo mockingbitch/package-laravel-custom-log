@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = User::all();
+        dd($user);
         $data = [
             'user' => 'test',
             'data' => 'data-test',
