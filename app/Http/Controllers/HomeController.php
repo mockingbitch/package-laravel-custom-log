@@ -12,15 +12,13 @@ class HomeController extends Controller
     public function index()
     {
         $user = User::all();
-        dd($user);
         $data = [
             'user' => 'test',
             'data' => 'data-test',
-            'status' => 200,
+            'status' => 500,
         ];
 
-//        return redirect()->route('welcome');
-//        return response()->json($data);
+        return response()->json($data, 500);
         return view('home', compact('user'));
     }
 

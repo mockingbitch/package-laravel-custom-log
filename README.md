@@ -69,7 +69,7 @@ Logger::info('User profile updated successfully.');
 #### Log SQL Queries
 To log SQL queries, you just need to add the configuration in the .env file. The Logger will listen to all queries and store them in the log_queries table (by default).
 
-```php
+```.env
 ENABLE_QUERY_DEBUGGER=true
 LOGGER_QUERY_TABLE=log_queries
 ```
@@ -81,6 +81,21 @@ Log all application requests, including the URL, parameters, response, and the e
 Route::group(['middleware' => 'activity'], function () {
     Route::get('/', [HomeController::class, 'index']);
 });
+```
+#### HTTP Exception
+Add this line in Handle Exceptions (bootstrap/app.php)
+```php
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        \phongtran\Logger\LoggerHandler::handle($exceptions); //Log exceptions
+    })->create();
 ```
 
 ## Advanced Features

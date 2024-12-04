@@ -5,12 +5,9 @@ namespace phongtran\Logger;
 use phongtran\Logger\App\Http\Middleware\LogActivity;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use phongtran\Logger\app\Listeners\RequestListener;
-use phongtran\Logger\app\Services\AbsLogService;
 use phongtran\Logger\app\Services\LogService;
-use phongtran\Logger\app\Watcher\RequestWatcher;
+use phongtran\Logger\app\Services\AbsLogService;
 
 /**
  * Logger Service Provider
@@ -21,52 +18,6 @@ use phongtran\Logger\app\Watcher\RequestWatcher;
  */
 class LoggerServiceProvider extends ServiceProvider
 {
-    const DISABLE_DEFAULT_ROUTES_CONFIG = 'phongtran-logger.disableRoutes';
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected bool $defer = false;
-
-    /**
-     * The event listener mappings for the applications auth sca-folding.
-     *
-     * @var array
-     */
-    protected array $listeners = [
-
-//        'Illuminate\Auth\Events\Attempting' => [
-//            'phongtran\Logger\App\Listeners\LogAuthenticationAttempt',
-//        ],
-//
-//        'Illuminate\Auth\Events\Authenticated' => [
-//            'phongtran\Logger\App\Listeners\LogAuthenticated',
-//        ],
-//
-//        'Illuminate\Auth\Events\Login' => [
-//            'phongtran\Logger\App\Listeners\LogSuccessfulLogin',
-//        ],
-//
-//        'Illuminate\Auth\Events\Failed' => [
-//            'phongtran\Logger\App\Listeners\LogFailedLogin',
-//        ],
-//
-//        'Illuminate\Auth\Events\Logout' => [
-//            'phongtran\Logger\App\Listeners\LogSuccessfulLogout',
-//        ],
-//
-//        'Illuminate\Auth\Events\Lockout' => [
-//            'phongtran\Logger\App\Listeners\LogLockout',
-//        ],
-//
-//        'Illuminate\Auth\Events\PasswordReset' => [
-//            'phongtran\Logger\App\Listeners\LogPasswordReset',
-//        ],
-
-    ];
-
     /**
      * Bootstrap the application services.
      *
@@ -76,7 +27,6 @@ class LoggerServiceProvider extends ServiceProvider
     public function boot(Router $router): void
     {
         $router->middlewareGroup('activity', [LogActivity::class]);
-//        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'Logger');
         if (Config::get('logger')) {
             Config::set('logging', array_merge(
                 Config::get('logging'),
@@ -120,31 +70,12 @@ class LoggerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the list of listeners and events.
-     *
-     * @return array
-     */
-    private function getListeners(): array
-    {
-        return $this->listeners;
-    }
-
-    /**
      * Register the list of listeners and events.
      *
      * @return void
      */
     private function registerEventListeners(): void
     {
-//        $listeners = $this->getListeners();
-//        foreach ($listeners as $listenerKey => $listenerValues) {
-//            foreach ($listenerValues as $listenerValue) {
-//                Event::listen(
-//                    $listenerKey,
-//                    $listenerValue
-//                );
-//            }
-//        }
     }
 
     /**
@@ -171,9 +102,5 @@ class LoggerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/public/vendor' => base_path('public/vendor/' . $publishTag),
         ], $publishTag);
-//
-//        $this->publishes([
-//            __DIR__.'/resources/lang' => base_path('resources/lang/vendor/'.$publishTag),
-//        ], $publishTag);
     }
 }

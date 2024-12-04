@@ -4,7 +4,6 @@ namespace phongtran\Logger;
 
 use DateTime;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Query Debugger
@@ -23,11 +22,6 @@ class QueryDebugger
     public static function setup(): void
     {
         DB::listen(function ($sql) {
-            $tableIgnored = [
-                '`sessions`',
-                '`logs`',
-                '`log_queries`',
-            ];
             // Extract the table name (this is a basic approach and might need adjustment based on query structure)
             $table = '';
             if (
@@ -35,9 +29,9 @@ class QueryDebugger
                 || preg_match('/update\s+([^\s]+)/i', $sql->sql, $matches)
                 || preg_match('/into\s+([^\s]+)/i', $sql->sql, $matches)
             ) {
-                $table = $matches[1];
+                $table = self::removeSemicolon($matches[1]);
             }
-            if (! in_array($table, $tableIgnored)) {
+            if (!in_array($table, self::getIgnoredTables())) {
                 foreach ($sql->bindings as $index => $binding) {
                     if ($binding instanceof DateTime) {
                         $sql->bindings[$index] = $binding->format('\'Y-m-d H:i:s\'');
@@ -50,9 +44,40 @@ class QueryDebugger
                 $query = str_replace(['%', '?'], ['%%', '%s'], $sql->sql);
                 $query = vsprintf($query, $sql->bindings);
                 $executionTime = $sql->time;
-//                $query = "[ExecutionTime: {$sql->time}ms] {$query}";
                 Logger::sql($query, $executionTime);
             }
         });
+    }
+
+    /**
+     * Remove semicolon
+     *
+     * @param string $string
+     * @return string
+     */
+    private static function removeSemicolon(string $string): string
+    {
+        return preg_replace('/["`\';]/', '', $string);
+    }
+
+    /**
+     * Get Ignored Tables
+     *
+     * @return array
+     */
+    private static function getIgnoredTables(): array
+    {
+        $logTables = [
+            config('logger.table'),
+            config('logger.query_table')
+        ];
+
+        $ignoredTables = array_filter(array_map(
+                'trim',
+                explode(',', config('logger.ignored_tables', ''))
+            )
+        );
+
+        return array_merge($logTables, $ignoredTables);
     }
 }

@@ -77,8 +77,8 @@ class Log extends Model
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = config('logger.logger_table');
-        $this->connection = config('logger.logger_connection');
+        $this->table = config('logger.table');
+        $this->connection = config('logger.connection');
     }
 
     /**
