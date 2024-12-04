@@ -81,7 +81,7 @@ class LogService extends AbsLogService
     {
         return LogQuery::create([
             'query' => $query,
-            'execution_time' => $executionTime,
+            'execution_time' => $executionTime ?? null,
         ]);
     }
 }
