@@ -9,7 +9,7 @@ composer require phongtran/logger
 ```
 After installation, you can publish the configuration file if needed:
 ```bash
-php artisan vendor:publish --tag=logger-config
+php artisan vendor:publish --tag=logger
 ```
 
 ## Configuration
@@ -70,7 +70,7 @@ Logger::info('User profile updated successfully.');
 To log SQL queries, you just need to add the configuration in the .env file. The Logger will listen to all queries and store them in the log_queries table (by default).
 
 ```php
-ENABLE_QUERY_DEBUGGER=false
+ENABLE_QUERY_DEBUGGER=true
 LOGGER_QUERY_TABLE=log_queries
 ```
 
